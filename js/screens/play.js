@@ -3,6 +3,9 @@ game.PlayScreen = me.ScreenObject.extend({
 	 *  action to perform on state change
 	 */
 	onResetEvent: function() {
+
+        me.levelDirector.loadLevel("Island1");
+
 		// reset the score
 		game.data.score = 0;
 
