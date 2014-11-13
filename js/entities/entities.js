@@ -16,13 +16,17 @@ game.PlayerEntity = me.Entity.extend({
         //ensure the player is update even when outside of the viewport
         this.alwaysUpdate = true;
 
-
+        //top down game - no visible gravity
         this.body.gravity = 0;
-        this.gravity = 0; //top down game
+        this.gravity = 0;
 
-        this.lastAnimationUsed = "run-down"; // Needed to prevent animation timer to be resett.. wich seam to happen otherwise
-        this.animationToUseThisFrame = "run-down"; // Needed to prevent animation timer to be resett.. wich seam to happen otherwise
 
+        //Note: the sprite for mainPlayer is specified in Tiled using the objects Layer
+        this.lastAnimationUsed = "run-down";
+        this.animationToUseThisFrame = "run-down";
+
+        //Animations from the tilesheet. Breaks a sprite sheet into Left-To-Right, Top-To-Bottom. so 15 is bottom right of a 4x4 sheet
+        //height and width are also set in Tiled as mainPlayer properties
         this.renderable.addAnimation('run-down', [0, 1, 2, 3], 100);
         this.renderable.addAnimation('run-left', [4, 5, 6, 7], 100);
         this.renderable.addAnimation('run-right', [8, 9, 10, 11], 100);
@@ -35,11 +39,8 @@ game.PlayerEntity = me.Entity.extend({
         this.body.maxVel.x = this.body.maxVel.y = 25;
     },
 
-    //update the player position
-    //what is dt? delta time i think
+    //update the player position based on delta time
     update: function(dt) {
-
-
 
         this.body.vel.x = 0;
         this.body.vel.y = 0;
@@ -48,70 +49,37 @@ game.PlayerEntity = me.Entity.extend({
         this.stateChanged = false;
 
         if(me.input.isKeyPressed('left')) {
-            //flip the sprite on horizontal axis
-//            this.flipX(true);
             this.body.vel.x -= 1; //just set the direction, actual vel calculated later
 
             this.stateChanged = true;
             this.animationToUseThisFrame = 'run-left';
-            //update the entity velocity
-//            this.body.vel.x -= this.body.accel.x * me.timer.tick;
         }
 
         if( me.input.isKeyPressed('right')) {
-            //unflip the sprite
-//            this.flipX(false);
-
             this.body.vel.x += 1;
             this.stateChanged = true;
             this.animationToUseThisFrame = 'run-right';
-
-            //update the entity velocity
-//            this.body.vel.x += this.body.accel.x * me.timer.tick;
         }
 
         if( me.input.isKeyPressed('up')) {
-            //todo set the up sprite
-
             this.body.vel.y -= 1;
             this.stateChanged = true;
             this.animationToUseThisFrame = 'run-up';
         }
 
         if( me.input.isKeyPressed('down')) {
-            //todo set the down sprite
-
             this.body.vel.y += 1;
             this.stateChanged = true;
             this.animationToUseThisFrame = 'run-down';
         }
-
-
 
         if (this.animationToUseThisFrame != this.lastAnimationUsed) {
             this.lastAnimationUsed = this.animationToUseThisFrame;
             this.renderable.setCurrentAnimation(this.animationToUseThisFrame);
         }
 
-
-
+        //if no buttons were pressed, pause the animation
         this.renderable.animationpause = !this.stateChanged;
-
-
-
-
-        //todo: in a top down, up/down will likely reflect this a bit more except using different spirtes not flipping
-
-//        if(me.input.isKeyPressed('jump')) {
-//            //make sure we are not already jumping or falling
-//            if(!this.body.jumping && !this.body.falling) {
-//                //set the current velocity to the maximum defined value
-//                // gravity will take care of it` from here
-//                this.body.vel.y = -this.body.maxVel.y * me.timer.tick;
-//                //s et the jumping flag
-//                this.body.jumping = true;
-//            }
-//        }
 
         // check & update player movement
         this.body.update(dt);

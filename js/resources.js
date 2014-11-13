@@ -1,22 +1,27 @@
 game.resources = [
 
     /**
-     * Graphics.
+     * Map Tiles
      */
     {name: "castleexample", type: "image", src: "data/img/map/castleexample.png"},
     {name: "Castle2", type:"image", src:"data/img/map/Castle2.png"},
-    // our level tileset
-//    {name: "area01_level_tiles",  type:"image", src: "data/img/map/area01_level_tiles.png"},
-    // our metatiles
+    /**
+     * Meta Tiles (collision)
+     */
     {name: "metatiles32x32",  type:"image", src: "data/img/map/metatiles32x32.png"},
-    {name: "gripe_run_right", type:"image", src: "data/img/sprite/gripe_run_right.png"},
+
+    /**
+     * Player sprite sheets
+     */
     {name: "obiwan1", type:"image", src: "data/img/sprite/obiwan1.png"},
+
+    /**
+     * Tiled File (The Map) (.tmx)
+     */
     {name: "Island1", type: "tmx", src: "data/map/Island1.tmx"}
 
-    /*
-     * Maps.
-     */
-//    {name: "area01", type: "tmx", src: "data/map/area01.tmx"}
+
+    //examples
 
 	/* Graphics. 
 	 * @example
