@@ -20,6 +20,18 @@ game.PlayerEntity = me.Entity.extend({
         this.body.gravity = 0;
         this.gravity = 0; //top down game
 
+        this.lastAnimationUsed = "run-down"; // Needed to prevent animation timer to be resett.. wich seam to happen otherwise
+        this.animationToUseThisFrame = "run-down"; // Needed to prevent animation timer to be resett.. wich seam to happen otherwise
+
+        this.renderable.addAnimation('run-down', [0, 1, 2, 3], 100);
+        this.renderable.addAnimation('run-left', [4, 5, 6, 7], 100);
+        this.renderable.addAnimation('run-right', [8, 9, 10, 11], 100);
+        this.renderable.addAnimation('run-up', [12, 13, 14, 15], 100);
+
+//        this.renderable.addAnimation('hit', [0, 4, 8, 12], 100);
+        this.renderable.setCurrentAnimation('run-down');
+
+
         this.body.maxVel.x = this.body.maxVel.y = 25;
     },
 
@@ -37,20 +49,22 @@ game.PlayerEntity = me.Entity.extend({
 
         if(me.input.isKeyPressed('left')) {
             //flip the sprite on horizontal axis
-            this.flipX(true);
+//            this.flipX(true);
             this.body.vel.x -= 1; //just set the direction, actual vel calculated later
 
             this.stateChanged = true;
+            this.animationToUseThisFrame = 'run-left';
             //update the entity velocity
 //            this.body.vel.x -= this.body.accel.x * me.timer.tick;
         }
 
         if( me.input.isKeyPressed('right')) {
             //unflip the sprite
-            this.flipX(false);
+//            this.flipX(false);
 
             this.body.vel.x += 1;
             this.stateChanged = true;
+            this.animationToUseThisFrame = 'run-right';
 
             //update the entity velocity
 //            this.body.vel.x += this.body.accel.x * me.timer.tick;
@@ -61,6 +75,7 @@ game.PlayerEntity = me.Entity.extend({
 
             this.body.vel.y -= 1;
             this.stateChanged = true;
+            this.animationToUseThisFrame = 'run-up';
         }
 
         if( me.input.isKeyPressed('down')) {
@@ -68,7 +83,19 @@ game.PlayerEntity = me.Entity.extend({
 
             this.body.vel.y += 1;
             this.stateChanged = true;
+            this.animationToUseThisFrame = 'run-down';
         }
+
+
+
+        if (this.animationToUseThisFrame != this.lastAnimationUsed) {
+            this.lastAnimationUsed = this.animationToUseThisFrame;
+            this.renderable.setCurrentAnimation(this.animationToUseThisFrame);
+        }
+
+
+
+        this.renderable.animationpause = !this.stateChanged;
 
 
 
@@ -79,7 +106,7 @@ game.PlayerEntity = me.Entity.extend({
 //            //make sure we are not already jumping or falling
 //            if(!this.body.jumping && !this.body.falling) {
 //                //set the current velocity to the maximum defined value
-//                // gravity will take care of it from here
+//                // gravity will take care of it` from here
 //                this.body.vel.y = -this.body.maxVel.y * me.timer.tick;
 //                //s et the jumping flag
 //                this.body.jumping = true;
@@ -94,14 +121,14 @@ game.PlayerEntity = me.Entity.extend({
         this.body.vel.scale(this.accelForce * this.g_dt);
 
         //update animation if necessary
-        if (this.body.vel.x!=0 || this.body.vel.y != 0) {
+//        if (this.body.vel.x!=0 || this.body.vel.y != 0) {
             //update object animation
             this._super(me.Entity, 'update', [dt]); //todo wtf does this do?
             return true; //inform engine we are updating;
-        }
+//        }
 
         //else inform the engine that we did not perform
         // any updates (position, animation, etc)
-        return false;
+//        return false;
     }
 });
