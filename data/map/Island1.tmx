@@ -8,9 +8,15 @@
  </tileset>
  <tileset firstgid="5018" name="metatiles" tilewidth="32" tileheight="32">
   <image source="../img/map/metatiles32x32.png" width="160" height="32"/>
+  <tile id="0">
+   <properties>
+    <property name="collidable" value="true"/>
+    <property name="type" value="solid"/>
+   </properties>
+  </tile>
  </tileset>
  <tileset firstgid="5023" name="obiwan1" tilewidth="32" tileheight="48">
-  <image source="../img/sprite/obiwan1.png" trans="ff00ff" width="129" height="192"/>
+  <image source="../img/sprite/obiwan1.png" trans="ff00ff" width="128" height="192"/>
  </tileset>
  <layer name="Tile Layer 1" width="20" height="15">
   <data encoding="base64">
