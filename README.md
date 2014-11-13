@@ -1,21 +1,12 @@
-melonJS boilerplate
+Sunset Island
 -------------------------------------------------------------------------------
+![Obi on an island](obi-on-island.png)
 
-features :
-- video autoscaling
-- mobile optimized HTML/CSS
-- swiping disabled on iOS devices
-- debug Panel (if #debug)
-- default icons
-- distribution build
+A 2D Adventure Game based on the real Sunset Island. All Javascript for compatibility with your favorite device. Built with [melonJS](http://melonjs.org/)
 
-## To run distribution
+## Running Instructions
 
-To build, be sure you have [node](http://nodejs.org) installed. Clone the project:
-
-    git clone https://github.com/melonjs/boilerplate.git
-
-Then in the cloned directory, simply run:
+Once you've cloned the project:
 
     npm install
 
@@ -23,16 +14,24 @@ To build:
 
     grunt
 
-
 Running the game:
 
 	grunt connect	
 
-And you will have the boilerplate example running on http://localhost:8000
+Check it out on http://localhost:8000
+
+## Features
+
+* Player moves around basic world with arrow keys
+* Collision detection with solid tiles
+* Player movement is animated and pauses when stopped
+
+## In Development
+
+* Expand map to model Sunset Island
+* Less awkward wall collisions
+* Enemy character
+* Attacking / Health
 
 
-Note that you may have to edit the file `Gruntfile.js` if you need to better dictate the order your files load in. Note how by default the game.js and resources.js are specified in a specific order.
 
--------------------------------------------------------------------------------
-Copyright (C) 2011 - 2014 Olivier Biot, Jason Oster, Aaron McLeod
-melonJS is licensed under the [MIT License](http://www.opensource.org/licenses/mit-license.php)
