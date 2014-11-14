@@ -8,7 +8,7 @@ game.PlayerEntity = me.Entity.extend({
         //set the default horizontal & vertical speed (accel vector)
         //todo: this is physics right? so 0 for top down? or is this start place?
         this.body.setVelocity(0,0);
-        this.accelForce = 0;
+        this.accelForce = 1;
 
         //set the display to follow our position on both axis
         me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
@@ -47,28 +47,36 @@ game.PlayerEntity = me.Entity.extend({
         this.g_dt = dt / 20; //To be able to keep original values of velocity but still use dt.
 
         this.stateChanged = false;
+        this.velocity = 1; //doesn't matter, normalized later
+
+        if( me.input.isKeyPressed('run')) {
+            this.accelForce = 3;
+//            this.stateChanged = true;
+        } else {
+            this.accelForce = 2;
+        }
 
         if(me.input.isKeyPressed('left')) {
-            this.body.vel.x -= 1; //just set the direction, actual vel calculated later
+            this.body.vel.x -= this.velocity; //just set the direction, actual vel calculated later
 
             this.stateChanged = true;
             this.animationToUseThisFrame = 'run-left';
         }
 
         if( me.input.isKeyPressed('right')) {
-            this.body.vel.x += 1;
+            this.body.vel.x += this.velocity;
             this.stateChanged = true;
             this.animationToUseThisFrame = 'run-right';
         }
 
         if( me.input.isKeyPressed('up')) {
-            this.body.vel.y -= 1;
+            this.body.vel.y -= this.velocity;
             this.stateChanged = true;
             this.animationToUseThisFrame = 'run-up';
         }
 
         if( me.input.isKeyPressed('down')) {
-            this.body.vel.y += 1;
+            this.body.vel.y += this.velocity;
             this.stateChanged = true;
             this.animationToUseThisFrame = 'run-down';
         }
@@ -81,12 +89,14 @@ game.PlayerEntity = me.Entity.extend({
         //if no buttons were pressed, pause the animation
         this.renderable.animationpause = !this.stateChanged;
 
+        //calculate actual velocity to prevent speeding by diagonal movement
+        this.body.vel.normalize();
+
+        this.body.vel.scale(this.accelForce * this.g_dt);
         // check & update player movement
         this.body.update(dt);
 
-        //calculate actual velocity to prevent speeding by diag
-        this.body.vel.normalize();
-        this.body.vel.scale(this.accelForce * this.g_dt);
+
 
         //update animation if necessary
 //        if (this.body.vel.x!=0 || this.body.vel.y != 0) {
