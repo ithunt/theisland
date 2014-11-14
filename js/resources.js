@@ -3,12 +3,15 @@ game.resources = [
     /**
      * Map Tiles
      */
-    {name: "castleexample", type: "image", src: "data/img/map/castleexample.png"},
-    {name: "Castle2", type:"image", src:"data/img/map/Castle2.png"},
+//    {name: "castleexample", type: "image", src: "data/img/map/castleexample.png"},
+//    {name: "Castle2", type:"image", src:"data/img/map/Castle2.png"},
+
+    {name: "terrain_atlas", type:"image", src:"data/img/map/terrain_atlas.png"},
+    {name: "base_out_atlas", type:"image", src:"data/img/map/base_out_atlas.png"},
     /**
      * Meta Tiles (collision)
      */
-    {name: "metatiles32x32",  type:"image", src: "data/img/map/metatiles32x32.png"},
+//    {name: "metatiles32x32",  type:"image", src: "data/img/map/metatiles32x32.png"},
 
     /**
      * Player sprite sheets
@@ -18,7 +21,8 @@ game.resources = [
     /**
      * Tiled File (The Map) (.tmx)
      */
-    {name: "Island1", type: "tmx", src: "data/map/Island1.tmx"}
+//    {name: "Island1", type: "tmx", src: "data/map/Island1.tmx"},
+    {name: "SunsetIsland", type:"tmx", src:"data/map/SunsetIsland.tmx"}
 
 
     //examples
