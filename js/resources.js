@@ -8,6 +8,7 @@ game.resources = [
 
     {name: "terrain_atlas", type:"image", src:"data/img/map/terrain_atlas.png"},
     {name: "base_out_atlas", type:"image", src:"data/img/map/base_out_atlas.png"},
+    {name: "obj_misk_atlas", type:"image", src:"data/img/map/obj_misk_atlas.png"},
     /**
      * Meta Tiles (collision)
      */
